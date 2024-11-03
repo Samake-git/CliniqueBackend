@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  springboot-app:
+    image: dockersam
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/clinique
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD:
+    depends_on:
+      - mysql-db
+  mysql-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_DATABASE: clinique
+    ports:
+      - "3306:3306"
